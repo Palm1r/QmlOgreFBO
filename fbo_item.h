@@ -1,5 +1,4 @@
-#ifndef FBO_ITEM_H
-#define FBO_ITEM_H
+#pragma once
 
 #include <QObject>
 
@@ -13,5 +12,3 @@ signals:
 
 public slots:
 };
-
-#endif // FBO_ITEM_H
