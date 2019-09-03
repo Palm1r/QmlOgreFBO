@@ -2,9 +2,11 @@
 
 #include <QObject>
 #include <QOpenGLContext>
+#include <QOpenGLFunctions_3_3_Core>
 #include <QQuickFramebufferObject>
 
-class FboItemRenderer : public QQuickFramebufferObject::Renderer {
+class FboItemRenderer : public QQuickFramebufferObject::Renderer
+{
 public:
     FboItemRenderer();
     QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
@@ -14,6 +16,7 @@ public:
 private:
     QQuickWindow *_window;
     QOpenGLContext *_qtContext;
+    QOpenGLFunctions_3_3_Core *_glFuncs;
 };
 
 class FboItem : public QQuickFramebufferObject

@@ -4,7 +4,11 @@
 #include <QtGui/QOpenGLFramebufferObject>
 #include <QtQuick/QQuickWindow>
 
-FboItemRenderer::FboItemRenderer() {}
+FboItemRenderer::FboItemRenderer()
+{
+    _qtContext = QOpenGLContext::currentContext();
+    _glFuncs = _qtContext->versionFunctions<QOpenGLFunctions_3_3_Core>();
+}
 
 QOpenGLFramebufferObject *FboItemRenderer::createFramebufferObject(const QSize &size)
 {
@@ -16,13 +20,12 @@ QOpenGLFramebufferObject *FboItemRenderer::createFramebufferObject(const QSize &
 
 void FboItemRenderer::render()
 {
-    _qtContext = QOpenGLContext::currentContext();
     //    _qtContext->makeCurrent(_window);
-    QOpenGLFunctions *f = _qtContext->functions();
-    f->glViewport(0, 0, 320, 240);
-    f->glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-    f->glClear(GL_COLOR_BUFFER_BIT);
-    f->glFlush();
+    _glFuncs->glViewport(0, 0, 320, 240);
+    _glFuncs->glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+    _glFuncs->glClear(GL_COLOR_BUFFER_BIT);
+    _glFuncs->glFlush();
+    //    _qtContext->doneCurrent();
 
     //    if (_window)
     //        _window->resetOpenGLState();
